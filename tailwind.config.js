@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        banner1: "url('/img/banner-1.jpg')",
+      },
       fontFamily: {
         kanit: ["Kanit"],
         athiti: ["Athiti"],

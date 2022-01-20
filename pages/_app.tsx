@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import BaiorghorContext from "../contexts/BaiorghorContext";
 import AuthContext from "../contexts/AuthContext";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <AuthContext>
       <BaiorghorContext>

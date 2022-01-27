@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 axios.defaults.withCredentials = true;
 
@@ -10,10 +10,13 @@ export const AuthState = createContext({
   session:
     {} || {
       _id: "",
-      username: "",
+      id: "",
+      nickName: "",
       firstName: "",
       lastName: "",
       sex: "",
+      grade: 0,
+      role: "",
       __v: 0,
     } ||
     null,
@@ -29,9 +32,15 @@ export const AuthState = createContext({
   setFirstname: (firstname: string) => {},
   setLastname: (lastname: string) => {},
   setGender: (gender: string) => {},
-  login: () => {},
+  login: (e: any) => {},
   logout: () => {},
 });
+
+export const useSession = () => {
+  const { session } = useContext(AuthState);
+
+  return session;
+};
 
 const AuthContext: React.FC = ({ children }) => {
   const router = useRouter();
@@ -44,7 +53,7 @@ const AuthContext: React.FC = ({ children }) => {
   const [gender, setGender] = useState("");
 
   const loginBody = {
-    username: username,
+    id: username,
     password: password,
   };
 
@@ -58,7 +67,8 @@ const AuthContext: React.FC = ({ children }) => {
 
   const [error, setError] = useState("");
 
-  const login = async () => {
+  const login = async (e: any) => {
+    e.preventDefault();
     setError("");
     await axios
       .post(

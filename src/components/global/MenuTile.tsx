@@ -9,6 +9,7 @@ interface Props {
   reqSession?: true;
   reqTeacher?: true;
   reqPrefect?: true;
+  reqAdmin?: true;
 }
 
 const MenuTile: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const MenuTile: React.FC<Props> = ({
   reqSession = false,
   reqPrefect = false,
   reqTeacher = false,
+  reqAdmin = false,
   route,
 }) => {
   const session = useSession();
@@ -24,8 +26,8 @@ const MenuTile: React.FC<Props> = ({
   const Body = () => {
     return (
       <Link href={`${route}`}>
-        <a className="grid place-content-center mr-10 mb-10">
-          <div className="flex flex-col items-center justify-between shadow-secondary bg-white h-44 w-44 rounded-[30px] cursor-pointer overflow-clip p-4">
+        <a className="grid place-content-center mr-10 mb-10 text-center">
+          <div className="flex flex-col items-center justify-between shadow-secondary bg-white h-44 w-44 rounded-[30px] cursor-pointer overflow-clip p-2">
             <span className="text-7xl flex flex-grow items-center">
               <Image src={img} width={110} height={110} />
             </span>
@@ -41,7 +43,13 @@ const MenuTile: React.FC<Props> = ({
   } else {
     if (reqSession) {
       if (session) {
-        if (reqPrefect) {
+        if (reqAdmin) {
+          if (session?.role === "a") {
+            return <Body />;
+          } else {
+            return null;
+          }
+        } else if (reqPrefect) {
           if (session?.role === "p") {
             return <Body />;
           } else {

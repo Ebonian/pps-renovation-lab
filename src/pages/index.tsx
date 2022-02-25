@@ -6,6 +6,8 @@ import MenuTile from "../components/global/MenuTile";
 import { AuthState, useSession } from "../contexts/AuthContext";
 
 import MeetingIcon from "../../public/img/icons/schedule.png";
+import UserIcon from "../../public/img/icons/user.png";
+import DocumentIcon from "../../public/img/icons/document.png";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -34,12 +36,20 @@ const Home: NextPage = () => {
       </div>
       {/* menu */}
       <div className="flex flex-wrap mt-36">
-        <MenuTile name="Baiorghor" img={MeetingIcon} route="/baiorghor" />
+        <MenuTile
+          name="Manage Account"
+          img={UserIcon}
+          route="/accounts"
+          reqSession
+          reqAdmin
+        />
+        <MenuTile name="Baiorghor" img={DocumentIcon} route="/baiorghor" />
         <MenuTile
           name="Meeting"
           img={MeetingIcon}
           route="/meeting"
           reqSession
+          reqPrefect
         />
       </div>
     </div>

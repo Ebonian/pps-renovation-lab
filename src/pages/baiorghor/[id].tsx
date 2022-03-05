@@ -56,7 +56,8 @@ const EachBaiorghor: NextPage<Props> = ({ document }) => {
 
   return (
     <div>
-      <p>{window.location.href}</p>
+      {/* <p>{window.location.href}</p> */}
+      <p>{process.env.NODE_ENV}</p>
       <p onClick={copyHandler}>copy!</p>
       <p>{document.members}</p>
     </div>

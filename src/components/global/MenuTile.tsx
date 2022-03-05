@@ -26,12 +26,12 @@ const MenuTile: React.FC<Props> = ({
   const Body = () => {
     return (
       <Link href={`${route}`}>
-        <a className="grid place-content-center mr-10 mb-10 text-center">
-          <div className="flex flex-col items-center justify-between shadow-secondary bg-white h-44 w-44 rounded-[30px] cursor-pointer overflow-clip p-2">
-            <span className="text-7xl flex flex-grow items-center">
-              <Image src={img} width={110} height={110} />
-            </span>
-            <span className="text-xl font-bold text-gray-800">{name}</span>
+        <a className="grid place-content-center text-center select-none">
+          <span className="text-7xl flex justify-center flex-grow mb-4">
+            <Image src={img} width={110} height={110} />
+          </span>
+          <div className="grid place-content-center shadow-secondary bg-white w-44 rounded-[20px] py-4 text-xl font-bold font-athiti text-gray-800">
+            {name}
           </div>
         </a>
       </Link>

@@ -10,7 +10,6 @@ const Baiorghor: NextPage = () => {
   const {
     membersHandler,
     addMembersHandler,
-    removeMembersHandler,
     members,
     classSelection,
     setClassSelection,

@@ -70,28 +70,28 @@ const About = () => {
             <Image src={ComputerIcon} width={200} height={200} />
             <h1 className="font-semibold text-2xl">Web Application</h1>
             <p className="max-w-xs">
-              For students and teachers who have their own computer.
+              For students and teachers who got their own computers.
             </p>
           </div>
           <div className="text-center">
             <Image src={MobileIcon} width={200} height={200} />
             <h1 className="font-semibold text-2xl">Mobile Application</h1>
             <p className="max-w-xs">
-              For students and teachers who have their own computer.
+              For prefects and teachers who got their own smartphones.
             </p>
           </div>
           <div className="text-center">
             <Image src={FolderIcon} width={200} height={200} />
             <h1 className="font-semibold text-2xl">Pre-Installed Software</h1>
             <p className="max-w-xs">
-              For students and teachers who have their own computer.
+              Ready-to-go software installed on school's public computers.
             </p>
           </div>
           <div className="text-center">
             <Image src={PencilIcon} width={180} height={200} />
             <h1 className="font-semibold text-2xl">Renovation-Lab-101</h1>
             <p className="max-w-xs">
-              For students and teachers who have their own computer.
+            Help everyone exceeds the most usage of our projects.
             </p>
           </div>
         </div>
@@ -205,7 +205,7 @@ const About = () => {
       </div>
       {/* teams */}
       <div className="flex flex-col bg-black items-center pt-20 pb-40">
-        <h1 className="font-bold text-5xl text-white">Teams</h1>
+        <h1 className="font-bold text-5xl text-white">The Team</h1>
         <div className="grid grid-cols-2 gap-20 text-white font-poppins mt-16">
           <div className="text-center">
             <Image src={TitanPicture} width="280" height="400" />

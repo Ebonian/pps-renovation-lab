@@ -198,7 +198,7 @@ const About = () => {
             <div>20%</div>
           </div>
           <div className="flex flex-grow justify-between">
-            <div>K'Kwan 😲</div>
+            <div>{"K'Kwan 😲"}</div>
             <div>20%</div>
           </div>
         </div>
@@ -225,8 +225,8 @@ const About = () => {
             <p>Teacher Wichet</p>
             <p>Teacher Branden</p>
             <p>Teacher Sarikpong</p>
-            <p>P'Farm M8</p>
-            <p>N'Ken M4</p>
+            <p>{"P'Farm M8"}</p>
+            <p>{"N'Ken M4"}</p>
           </div>
         </div>
         <div className="bg-banner1 bg-center opacity-20 h-full"></div>

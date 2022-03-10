@@ -84,7 +84,7 @@ const About = () => {
             <Image src={FolderIcon} width={200} height={200} />
             <h1 className="font-semibold text-2xl">Pre-Installed Software</h1>
             <p className="max-w-xs">
-              Ready-to-go software installed on school's public computers.
+              {"Ready-to-go software installed on school's public computers."}
             </p>
           </div>
           <div className="text-center">

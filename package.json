@@ -1,17 +1,21 @@
 {
-  "name": "pps-renovation-lab",
+  "name": "pps-renovation-lab-client",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^9.6.1",
+    "@types/cookie": "^0.4.1",
+    "axios": "^0.24.0",
+    "cookie": "^0.4.1",
     "next": "12.0.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "swr": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "17.0.7",

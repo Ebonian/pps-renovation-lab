@@ -1,9 +1,11 @@
 import { NextPage } from "next";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FiUserPlus } from "react-icons/fi";
 import BackButton from "../../components/global/BackButton";
 import Input from "../../components/global/Input";
+import ProfileButton from "../../components/global/ProfileButton";
 import Textarea from "../../components/global/TextArea";
+import { AuthState } from "../../contexts/AuthContext";
 import { BaiorghorState } from "../../contexts/BaiorghorContext";
 
 const Baiorghor: NextPage = () => {
@@ -13,10 +15,27 @@ const Baiorghor: NextPage = () => {
     members,
     classSelection,
     setClassSelection,
+    supervisor,
+    responsibleTeacher,
+    responsibleTeacherHandler,
+    supervisorHandler,
+    reason,
+    reasonHandler,
+    place,
+    placeHandler,
+    startDate,
+    startDateHandler,
+    endDate,
+    endDateHandler,
+    note,
+    noteHandler,
+    postHandler,
   } = useContext(BaiorghorState);
+
   return (
-    <div className="flex justify-center pt-[15vh] bg-background-100 min-h-screen w-full">
+    <div className="flex flex-col items-center pt-[15vh] bg-background-100 min-h-screen w-full">
       <BackButton />
+      <ProfileButton />
 
       <div className="flex space-x-14">
         {/* 1st row */}
@@ -44,7 +63,7 @@ const Baiorghor: NextPage = () => {
                     className="outline-none border-2 rounded-2xl px-2 py-[4.5px] border-primary-black font-semibold text-primary-black"
                     onChange={(e) => membersHandler(idx, e)}
                   >
-                    <option disabled selected value=""></option>
+                    <option disabled selected value={members.class}></option>
                     <option value="ม.1">ม.1</option>
                     <option value="ม.2">ม.2</option>
                     <option value="ม.3">ม.3</option>
@@ -161,21 +180,64 @@ const Baiorghor: NextPage = () => {
         </div>
         {/* 2nd row */}
         <div className="space-y-8 font-athiti">
-          <Input placeholder="ชื่อครูผู้ดูแล" type="text" label="ครูผู้ดูแล" />
+          <Input
+            placeholder="ชื่อครูผู้ดูแล"
+            type="text"
+            label="ครูผู้ดูแล"
+            onChange={supervisorHandler}
+            value={supervisor}
+          />
           <Input
             placeholder="ชื่อครูผู้รับผิดชอบ"
             type="text"
             label="ครูผู้รับผิดชอบ"
+            onChange={responsibleTeacherHandler}
+            value={responsibleTeacher}
           />
-          <Input placeholder="ที่ไหน?" type="text" label="สถานที่" />
-          <Textarea placeholder="ขออนุญาตออกจากหอเพื่อ..." label="เหตุผล" />
+          <Input
+            placeholder="ที่ไหน?"
+            type="text"
+            label="สถานที่"
+            onChange={placeHandler}
+            value={place}
+          />
+          <Textarea
+            placeholder="ขออนุญาตออกจากหอเพื่อ..."
+            label="เหตุผล"
+            onChange={reasonHandler}
+            value={reason}
+          />
         </div>
         {/* 3rd row */}
         <div className="space-y-8 font-athiti">
-          <Input type="datetime-local" label="ตั้งแต่" />
-          <Input type="datetime-local" label="จนถึง" />
-          <Textarea placeholder="เช่นขอไม่เข้าแถว" label="หมายเหตุ" />
+          <Input
+            type="datetime-local"
+            label="ตั้งแต่"
+            onChange={startDateHandler}
+            value={startDate}
+          />
+          <Input
+            type="datetime-local"
+            label="จนถึง"
+            onChange={endDateHandler}
+            value={endDate}
+          />
+          <Textarea
+            placeholder="เช่นขอไม่เข้าแถว"
+            label="หมายเหตุ"
+            onChange={noteHandler}
+            value={note}
+          />
         </div>
+      </div>
+
+      <div className="mt-32">
+        <span
+          className="bg-gradient-to-r from-gradient-100 to-gradient-200 font-poppins font-semibold text-white py-3 px-20 rounded-xl shadow-color select-none cursor-pointer"
+          onClick={postHandler}
+        >
+          Submit
+        </span>
       </div>
     </div>
   );

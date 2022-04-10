@@ -42,13 +42,13 @@ const Archive: React.FC<Props> = ({
   const checkParentTeacherApproval = () => {
     const check = [];
 
-    if (activeDocument.membersDorm1.length > 0)
+    if (activeDocument?.membersDorm1.length > 0)
       check.push(activeDocument.parentTeacherApproval.dorm1);
-    if (activeDocument.membersDorm2.length > 0)
+    if (activeDocument?.membersDorm2.length > 0)
       check.push(activeDocument.parentTeacherApproval.dorm2);
-    if (activeDocument.membersDorm3.length > 0)
+    if (activeDocument?.membersDorm3.length > 0)
       check.push(activeDocument.parentTeacherApproval.dorm3);
-    if (activeDocument.membersDorm4.length > 0)
+    if (activeDocument?.membersDorm4.length > 0)
       check.push(activeDocument.parentTeacherApproval.dorm4);
 
     return check;

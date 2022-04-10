@@ -43,7 +43,6 @@ export const useSession = () => {
 };
 
 const AuthContext: React.FC = ({ children }) => {
-  axios.defaults.withCredentials = true;
   const router = useRouter();
 
   const [session, setSession] = useState(null);

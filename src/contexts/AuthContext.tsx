@@ -78,7 +78,8 @@ const AuthContext: React.FC = ({ children }) => {
             ? process.env.NEXT_PUBLIC_PRODUCTION_API
             : process.env.NEXT_PUBLIC_DEVELOPMENT_API
         }/account/login`,
-        loginBody
+        loginBody,
+        { withCredentials: true }
       )
       .then(() => getUser())
       .catch((err) => setError(err));
@@ -111,7 +112,8 @@ const AuthContext: React.FC = ({ children }) => {
           process.env.NEXT_PUBLIC_ENVIRONMENT === "PRODUCTION"
             ? process.env.NEXT_PUBLIC_PRODUCTION_API
             : process.env.NEXT_PUBLIC_DEVELOPMENT_API
-        }/account/user`
+        }/account/user`,
+        { withCredentials: true }
       )
       .then((res) => {
         console.log(res.data);

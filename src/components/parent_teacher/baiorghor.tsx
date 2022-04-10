@@ -61,16 +61,7 @@ const BaiorghorParentTeacher: React.FC = () => {
     isToday: false,
   });
 
-  const filteredDocuments = documents
-    ?.filter((document) => {
-      if (
-        session?.nickName === document.supervisorTeacher ||
-        session?.nickName === document.responsibleTeacher
-      ) {
-        return document;
-      }
-    })
-    .reverse();
+  const filteredDocuments = documents.reverse();
 
   useEffect(() => {
     setActiveDocument(filteredDocuments[0]);

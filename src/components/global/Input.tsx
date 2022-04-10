@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { BaiorghorState } from "../../contexts/BaiorghorContext";
 
 interface Props {
   placeholder?: string;
@@ -16,21 +17,7 @@ const Input: React.FC<Props> = ({
   value,
   label,
 }) => {
-  const [users, setUsers] = useState([] || null);
-
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          process.env.NEXT_PUBLIC_ENVIRONMENT === "PRODUCTION"
-            ? process.env.NEXT_PUBLIC_PRODUCTION_API
-            : process.env.NEXT_PUBLIC_DEVELOPMENT_API
-        }/account/get`
-      )
-      .then((res) => {
-        setUsers(res.data);
-      });
-  }, []);
+  const { users } = useContext(BaiorghorState);
 
   return (
     <div>
@@ -55,7 +42,7 @@ const Input: React.FC<Props> = ({
               },
               idx
             ) => {
-              if (user.role === "t") {
+              if (user.role.includes("t")) {
                 return <option key={idx} value={"ครู" + user.nickName} />;
               } else {
                 return null;
@@ -72,7 +59,7 @@ const Input: React.FC<Props> = ({
               },
               idx
             ) => {
-              if (user.role === "t") {
+              if (user.role.includes("t")) {
                 return <option key={idx} value={"ครู" + user.nickName} />;
               } else {
                 return null;

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSession } from "../../contexts/AuthContext";
 import FileIcon from "../../../public/img/icons/file.png";
 import Image from "next/image";
 
-const ProfileButton = () => {
+interface Props {
+  profile: true;
+}
+
+const ProfileButton: React.FC<Props> = ({ profile = false }) => {
   const session = useSession();
 
   return (
@@ -12,10 +16,11 @@ const ProfileButton = () => {
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/img/icons/user.png')] h-full w-12" />
         <span className="text-2xl font-bold pr-4">{session?.id}</span>
       </div>
-
-      <div className="h-[64px] w-[64px] grid place-content-center bg-white shadow-secondary rounded-full p-4 cursor-pointer">
-        <Image src={FileIcon} />
-      </div>
+      {!profile && (
+        <div className="h-[64px] w-[64px] grid place-content-center bg-white shadow-secondary rounded-full p-4 cursor-pointer select-none">
+          <Image src={FileIcon} />
+        </div>
+      )}
     </div>
   );
 };

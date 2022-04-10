@@ -8,8 +8,10 @@ interface Props {
   route: String;
   reqSession?: true;
   reqTeacher?: true;
+  reqParentTeacher?: true;
   reqPrefect?: true;
   reqAdmin?: true;
+  reqStudent?: true;
 }
 
 const MenuTile: React.FC<Props> = ({
@@ -18,7 +20,9 @@ const MenuTile: React.FC<Props> = ({
   reqSession = false,
   reqPrefect = false,
   reqTeacher = false,
+  reqParentTeacher = false,
   reqAdmin = false,
+  reqStudent = false,
   route,
 }) => {
   const session = useSession();
@@ -57,6 +61,18 @@ const MenuTile: React.FC<Props> = ({
           }
         } else if (reqTeacher) {
           if (session?.role === "t") {
+            return <Body />;
+          } else {
+            return null;
+          }
+        } else if (reqParentTeacher) {
+          if (session?.role === "pt") {
+            return <Body />;
+          } else {
+            return null;
+          }
+        } else if (reqStudent) {
+          if (session?.role === "s") {
             return <Body />;
           } else {
             return null;

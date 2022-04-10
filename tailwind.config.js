@@ -13,6 +13,7 @@ module.exports = {
         kanit: ["Kanit"],
         athiti: ["Athiti"],
         poppins: ["Poppins"],
+        robotoMono: ["Roboto Mono"],
       },
       colors: {
         primary: {
@@ -33,6 +34,9 @@ module.exports = {
           "0px 10px 20px rgba(234, 199, 179, 1), inset 2px 2px 4px rgba(255, 238, 238, 0.75), inset -4px -4px 8px rgba(245, 231, 223, 1)",
         button:
           "0px 10px 20px rgba(220, 147, 80, 0.3), inset 2px 2px 4px rgba(220, 122, 80, 0.25), inset -4px -4px 8px rgba(0, 0, 0, 0.1)",
+        lightWhiteButton:
+          "0px 7.91024px 15.8205px #EAC7B3, inset 1.58205px 1.58205px 3.1641px rgba(255, 238, 238, 0.75), inset -3.1641px -3.1641px 6.32819px #F5E7DF",
+        glass: "inset 4px 4px 28px 10px rgba(255, 255, 255, 0.8)",
       },
     },
   },

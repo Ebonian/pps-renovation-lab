@@ -1,6 +1,8 @@
 import axios from "axios";
+import moment from "moment";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
+import useSWR from "swr";
 import dorm from "../data/dorm.json";
 import { AuthState } from "./AuthContext";
 
@@ -45,17 +47,59 @@ export const BaiorghorState = createContext({
   note: "",
   noteHandler: (e: React.ChangeEvent<HTMLInputElement>) => {},
   postHandler: () => {},
+  menu: false,
+  setMenu: (menu: boolean) => {},
+  documents:
+    [
+      {
+        _id: "",
+        requester: "",
+        members: [""],
+        membersDorm1: [""],
+        membersDorm2: [""],
+        membersDorm3: [""],
+        membersDorm4: [""],
+        classSelection: {
+          m1: false,
+          m2: false,
+          m3: false,
+          m4: false,
+          m5: false,
+          m6: false,
+        },
+        supervisorTeacher: "",
+        responsibleTeacher: "",
+        reason: "",
+        place: "",
+        note: "",
+        startDate: new Date(),
+        endDate: new Date(),
+        parentTeacherApproval: {
+          dorm1: false,
+          dorm2: false,
+          dorm3: false,
+          dorm4: false,
+        },
+        supervisorTeacherApproval: false,
+        responsibleTeacherApproval: false,
+        parentTeacherNote: {
+          dorm1: "",
+          dorm2: "",
+          dorm3: "",
+          dorm4: "",
+        },
+        supervisorTeacherNote: "",
+        responsibleTeacherNote: "",
+        createdAt: "",
+        updatedAt: "",
+        __v: 0,
+        isToday: false,
+      },
+    ] || null,
+  users: [],
 });
 
 const BaiorghorContext: React.FC = ({ children }) => {
-  function mergeTodayProp(objectWithArray: Array<any>, array: Array<any>) {
-    objectWithArray.map((e, i) => {
-      e["isToday"] = array[i];
-    });
-
-    return objectWithArray;
-  }
-
   // requester
   const { session } = useContext(AuthState);
   const requester = session?.nickName + " ม." + session?.grade;
@@ -158,13 +202,24 @@ const BaiorghorContext: React.FC = ({ children }) => {
     supervisorTeacher: supervisor.substring(3),
     responsibleTeacher: responsibleTeacher.substring(3),
     reason: reason,
+    place: place,
     note: note,
     startDate: startDate,
     endDate: endDate,
-    parentTeacherApproval: false,
+    parentTeacherApproval: {
+      dorm1: false,
+      dorm2: false,
+      dorm3: false,
+      dorm4: false,
+    },
     supervisorTeacherApproval: false,
     responsibleTeacherApproval: false,
-    parentTeacherNote: "",
+    parentTeacherNote: {
+      dorm1: "",
+      dorm2: "",
+      dorm3: "",
+      dorm4: "",
+    },
     supervisorTeacherNote: "",
     responsibleTeacherNote: "",
   };
@@ -210,10 +265,10 @@ const BaiorghorContext: React.FC = ({ children }) => {
       .then((res) => {
         res.data.map(
           (res: { role: string; nickName: string; grade: number }) => {
-            if (res.role === "s") {
+            if (res.role === "s" || res.role === "p") {
               allDBStudents.push(res.nickName + " ม." + res.grade);
             }
-            if (res.role === "t") {
+            if (res.role === "t" || res.role === "pt") {
               allDBTeachers.push("ครู" + res.nickName);
             }
           }
@@ -258,6 +313,89 @@ const BaiorghorContext: React.FC = ({ children }) => {
       });
   };
 
+  // users
+  const [users, setUsers] = useState([] || null);
+
+  useEffect(() => {
+    axios
+      .get(
+        `${
+          process.env.NEXT_PUBLIC_ENVIRONMENT === "PRODUCTION"
+            ? process.env.NEXT_PUBLIC_PRODUCTION_API
+            : process.env.NEXT_PUBLIC_DEVELOPMENT_API
+        }/account/get`
+      )
+      .then((res) => {
+        setUsers(res.data);
+      });
+  }, []);
+
+  // displaying baiorghor
+  // const [documents, setDocuments] = useState([] || null);
+
+  const fetcher = (url: string) =>
+    axios
+      .get(url)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+
+  const { data: documents, isValidating } = useSWR(
+    `${
+      process.env.NEXT_PUBLIC_ENVIRONMENT === "PRODUCTION"
+        ? process.env.NEXT_PUBLIC_PRODUCTION_API
+        : process.env.NEXT_PUBLIC_DEVELOPMENT_API
+    }/baiorghor/get`,
+    fetcher
+  );
+
+  // checking is it is today date and merge into the documents object
+  function checkIsTodayDate(start: any, end: any) {
+    const today = new Date();
+    const formattedToday = moment(today).format("MM/DD/YYYY");
+
+    const dateFrom = moment(start).format("MM/DD/YYYY");
+    const dateTo = moment(end).format("MM/DD/YYYY");
+    const dateCheck = formattedToday;
+
+    const d1 = dateFrom.split("/");
+    const d2 = dateTo.split("/");
+    const c = dateCheck.split("/");
+
+    // @ts-ignore
+    const from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);
+    // @ts-ignore
+    const to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
+    // @ts-ignore
+    const check = new Date(c[2], parseInt(c[1]) - 1, c[0]);
+
+    return check >= from && check <= to;
+  }
+
+  function mergeTodayProp(objectWithArray: any, array: any) {
+    objectWithArray.map((e: any, i: number) => {
+      e["isToday"] = array[i];
+    });
+
+    return objectWithArray;
+  }
+
+  function showDatesHandler() {
+    const allCreatedDates = documents.map((x: any) => x.createdAt);
+    const allEndDates = documents.map((x: any) => x.endDate);
+
+    const showDates = allCreatedDates.map((e: any, i: any) =>
+      checkIsTodayDate(e, allEndDates[i])
+    );
+
+    return showDates;
+  }
+
+  useEffect(() => {
+    if (!isValidating) mergeTodayProp(documents, showDatesHandler());
+  }, [documents]);
+
+  const [menu, setMenu] = useState(false);
+
   return (
     <BaiorghorState.Provider
       value={{
@@ -283,6 +421,10 @@ const BaiorghorContext: React.FC = ({ children }) => {
         note,
         noteHandler,
         postHandler,
+        menu,
+        setMenu,
+        documents,
+        users,
       }}
     >
       {children}

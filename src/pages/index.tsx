@@ -49,7 +49,12 @@ const Home: NextPage = () => {
             reqSession
             reqAdmin
           />
-          <MenuTile name="ใบออกหอ" img={DocumentIcon} route="/baiorghor" />
+          <MenuTile
+            name="ใบออกหอ"
+            img={DocumentIcon}
+            route="/baiorghor"
+            reqSession
+          />
           <MenuTile
             name="บันทึกการประชุม"
             img={MeetingIcon}
